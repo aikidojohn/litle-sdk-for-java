@@ -97,12 +97,12 @@ task processXsd (type: Copy) {
     }
     
     doLast {
-        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(attributeFormDefault=\"unqualified\")>", replace:"\\1 xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\" jaxb:version=\"2.0\">", byline:true)
+    	ant.replaceregexp(file:"$xsdOutput/litleBatch_v${SCHEMA_VERSION}.xsd", match:"(<xs:attribute name=\"num\\w+\".*use=\"optional\".*)/>", replace:"\\1 default=\"0\"/>", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleBatch_v${SCHEMA_VERSION}.xsd", match:"(<xs:attribute name=\"\\w+Amount\".*use=\"optional\".*)/>", replace:"\\1 default=\"0\"/>", byline:true)
+     
         ant.replaceregexp(file:"$xsdOutput/litleCommon_v${SCHEMA_VERSION}.xsd", match:"(elementFormDefault=\"qualified\")>", replace:"\\1 xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\" jaxb:version=\"2.0\">", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"transaction\" type=\"xp:transactionType\" abstract=\"true\"/>", replace:"transaction\" type=\"xp:transactionType\" abstract=\"true\"/>    \n\n    <xs:complexType name=\"litleTransactionInterface\" abstract=\"true\"/>", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"name=\"transactionType\">", replace:"name=\"transactionType\">    \n        <xs:complexContent>    \n            <xs:extension base=\"xp:litleTransactionInterface\">", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:attribute name=\"id\" type=\"xp:string25Type\"/>", replace:"       <xs:attribute name=\"id\" type=\"xp:string25Type\"/>", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:attribute name=\"customerId\" type=\"xp:customerIdType\" use=\"optional\"/>", replace:"       <xs:attribute name=\"customerId\" type=\"xp:customerIdType\" use=\"optional\"/>       \n            </xs:extension>       \n        </xs:complexContent>", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleCommon_v${SCHEMA_VERSION}.xsd", match:"(<xs:enumeration value=\"\")\\s?+/>", replace:"\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"BLANK\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
+        
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"name=\"recurringTransactionType\">", replace:"name=\"recurringTransactionType\">    \n        <xs:complexContent>    \n            <xs:extension base=\"xp:litleTransactionInterface\">    \n            </xs:extension>    \n        </xs:complexContent>")
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"name=\"recurringTransactionResponseType\">", replace:"name=\"recurringTransactionResponseType\">    \n        <xs:complexContent>    \n            <xs:extension base=\"xp:litleTransactionInterface\">", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"<xs:sequence>", replace:"        <xs:sequence>")
@@ -113,6 +113,8 @@ task processXsd (type: Copy) {
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"</xs:sequence>", replace:"        </xs:sequence>    \n            </xs:extension>    \n        </xs:complexContent>")
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"", replace:"")
         ant.replaceregexp(file:"$xsdOutput/litleRecurring_v${SCHEMA_VERSION}.xsd", match:"", replace:"")
+        
+        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(attributeFormDefault=\"unqualified\")>", replace:"\\1 xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\" jaxb:version=\"2.0\">", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"enumeration value=(.*?3dsAuthenticated.*?)/>", replace:"enumeration value=\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"AUTHENTICATED_3DS\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"enumeration value=(.*?3dsAttempted.*?)/>", replace:"enumeration value=\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"ATTEMPTED_3DS\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(element name=\"customerType\" minOccurs=\"0\".*?<xs:simpleType>)", replace:"\\1<xs:annotation><xs:appinfo><jaxb:typesafeEnumClass name=\"CustomerType\"/></xs:appinfo></xs:annotation>", flags:"s")
@@ -133,12 +135,13 @@ task processXsd (type: Copy) {
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(<xs:enumeration value=\"20\")\\s?+/>", replace:"\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"ROOM_TAX\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(<xs:enumeration value=\"21\")\\s?+/>", replace:"\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"OCCUPANCY_TAX\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(<xs:enumeration value=\"22\")\\s?+/>", replace:"\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"ENERGY_TAX\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleCommon_v${SCHEMA_VERSION}.xsd", match:"(<xs:enumeration value=\"\")\\s?+/>", replace:"\\1><xs:annotation><xs:appinfo><jaxb:typesafeEnumMember name=\"BLANK\"/></xs:appinfo></xs:annotation></xs:enumeration>", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"transaction\" type=\"xp:transactionType\" abstract=\"true\"\\s*/>", replace:"transaction\" type=\"xp:transactionType\" abstract=\"true\"/>    \n\n    <xs:complexType name=\"litleTransactionInterface\" abstract=\"true\"/>", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"name=\"transactionType\">", replace:"name=\"transactionType\">    \n        <xs:complexContent>    \n            <xs:extension base=\"xp:litleTransactionInterface\">", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:attribute name=\"id\" type=\"xp:string25Type\"\\s*/>", replace:"       <xs:attribute name=\"id\" type=\"xp:string25Type\"/>", byline:true)
+        ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:attribute name=\"customerId\" type=\"xp:customerIdType\" use=\"optional\"\\s*/>", replace:"       <xs:attribute name=\"customerId\" type=\"xp:customerIdType\" use=\"optional\" />       \n            </xs:extension>       \n        </xs:complexContent>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"(<xs:element name=\"echeckVerification.*?)<xs:all>(.*?)</xs:all>(.*?</xs:element)", replace:"\\1<xs:sequence>\\2</xs:sequence>\\3", flags:"s")
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:element ref=\"xp:echeckOrEcheckToken\"\\s?/>", replace:"<xs:choice><xs:element name=\"echeck\" type=\"xp:echeckType\"/><xs:element name=\"echeckToken\" type=\"xp:echeckTokenType\"/></xs:choice>", byline:true)
         ant.replaceregexp(file:"$xsdOutput/litleTransaction_v${SCHEMA_VERSION}.xsd", match:"<xs:element ref=\"xp:echeckOrEcheckToken\" minOccurs=\"0\"\\s?/>", replace:"<xs:choice><xs:element name=\"echeck\" type=\"xp:echeckType\"/><xs:element name=\"echeckToken\" type=\"xp:echeckTokenType\"/></xs:choice>", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleBatch_v${SCHEMA_VERSION}.xsd", match:"(<xs:attribute name=\"num\\w+\".*use=\"optional\".*)/>", replace:"\\1 default=\"0\"/>", byline:true)
-        ant.replaceregexp(file:"$xsdOutput/litleBatch_v${SCHEMA_VERSION}.xsd", match:"(<xs:attribute name=\"\\w+Amount\".*use=\"optional\".*)/>", replace:"\\1 default=\"0\"/>", byline:true)
     }
 }
 
