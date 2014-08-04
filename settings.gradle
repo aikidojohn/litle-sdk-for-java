@@ -1,6 +1,8 @@
 rootProject.name='litle-sdk-for-java'
 include 'samples/auth'
 project(":samples/auth").name = "auth"
+include 'samples/batch'
+project(":samples/batch").name = "batch"
 include 'samples/sale'
 project(":samples/sale").name = "sale"
 include 'samples/capture'

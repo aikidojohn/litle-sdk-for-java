@@ -37,6 +37,11 @@ repositories {
         main='com.litle.sdk.samples.VoidExample'
         classpath = sourceSets.main.runtimeClasspath	   
 }
+  task execRfrExample(type:JavaExec){
+      check.dependsOn it
+          main='com.litle.sdk.samples.RfrLitleExample'
+          classpath = sourceSets.main.runtimeClasspath
+  }
 
 
    
