@@ -16,8 +16,9 @@ public class RfrLitleExample {
         LitleRFRFileRequest request = new LitleRFRFileRequest(requestFileName, rfrRequest);
          
         LitleRFRFileResponse response = request.sendToLitleSFTP();
-         
-        System.out.println("Response: " + response.getMessage());
+        System.out.println("Response:"+response.getMessage());
+	//if(!response.getMessage().equals("The account update file is not ready yet.  Please try again later."))
+        //throw new RuntimeException(" The RfrLitleExample does not give the right response");
 
     }
 }

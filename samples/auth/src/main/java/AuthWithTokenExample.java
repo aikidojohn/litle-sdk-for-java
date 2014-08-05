@@ -20,5 +20,8 @@ public class AuthWithTokenExample {
         System.out.println("Response: " + response.getResponse());
         System.out.println("Message: " + response.getMessage());
         System.out.println("Litle Transaction ID: " + response.getLitleTxnId());
+	// In your sample, you can ignore this 	
+	if(!response.getMessage().equals("Approved"))
+        throw new RuntimeException(" The AuthWithTokenExample does not give the right response");
     }
 }

@@ -30,6 +30,10 @@ public class AuthExample {
         System.out.println("Response: " + response.getResponse());
         System.out.println("Message: " + response.getMessage());
         System.out.println("Litle Transaction ID: " + response.getLitleTxnId());
-       
+        
+        // In your sample, you can ignore this
+        if(!response.getMessage().equals("Approved"))
+         throw new RuntimeException(" The AuthSample does not give the right response");
+        
     }
 }

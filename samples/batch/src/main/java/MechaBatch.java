@@ -1,6 +1,8 @@
 package com.litle.sdk.samples;
 import com.litle.sdk.*;
 import com.litle.sdk.generate.*;
+import java.util.Calendar;
+import java.util.Properties;
  
 /*
 An example of the batch functionality of Litle Java SDK. We create one of each transaction type, add them to a batch, and then deliver the batch over sFTP to Litle. Note the use of an anonymous class to process responses.
@@ -9,12 +11,8 @@ public class MechaBatch {
     public static void main(String[] args) {    	
     	String requestFileName = "litleSdk-testBatchFile-MECHA.xml";
 	LitleBatchFileRequest request = new LitleBatchFileRequest(requestFileName);
-	 
+	String merchantId = "0180";
 	Properties configFromFile = request.getConfig();
-	 
-	// pre-assert the config file has required param values
-	assertEquals("prelive.litle.com", configFromFile.getProperty("batchHost"));
-	assertEquals("15000", configFromFile.getProperty("batchPort"));
 	 
 	LitleBatchRequest batch = request.createBatch(merchantId);
 	 
@@ -144,52 +142,10 @@ public class MechaBatch {
 	 
 	LitleBatchFileResponse fileResponse = request.sendToLitleSFTP();
 	LitleBatchResponse batchResponse = fileResponse.getNextLitleBatchResponse();
-	int txns = 1;
-	// iterate over all transactions in the file with a custom response
-	// processor
-	while (batchResponse.processNextTransaction(new LitleResponseProcessor() {
-	    public void processAuthorizationResponse(AuthorizationResponse authorizationResponse) {
-	 
-	    }
-	 
-	    public void processCaptureResponse(CaptureResponse captureResponse) {
-	    }
-	 
-	    public void processForceCaptureResponse(ForceCaptureResponse forceCaptureResponse) {
-	    }
-	 
-	    public void processCaptureGivenAuthResponse(CaptureGivenAuthResponse captureGivenAuthResponse) {
-	    }
-	 
-	    public void processSaleResponse(SaleResponse saleResponse) {
-	    }
-	 
-	    public void processCreditResponse(CreditResponse creditResponse) {
-	    }
-	 
-	    public void processEcheckSalesResponse(EcheckSalesResponse echeckSalesResponse) {
-	    }
-	 
-	    public void processEcheckCreditResponse(EcheckCreditResponse echeckCreditResponse) {
-	    }
-	 
-	    public void processEcheckVerificationResponse(EcheckVerificationResponse echeckVerificationResponse) {
-	    }
-	 
-	    public void processEcheckRedepositResponse(EcheckRedepositResponse echeckRedepositResponse) {
-	    }
-	 
-	    public void processAuthReversalResponse(AuthReversalResponse authReversalResponse) {
-	    }
-	 
-	    public void processRegisterTokenResponse(RegisterTokenResponse registerTokenResponse) {
-	    }
-	 
-	    public void processAccountUpdate(AccountUpdateResponse accountUpdateResponse) {
-	    }
-	})) {
-	    txns++;
-	}
-	    }
+        System.out.println("Response Message:"+fileResponse.getMessage());
+	 if(!fileResponse.getMessage().equals("Valid Format"))
+         throw new RuntimeException(" The MechaBatch does not give the right response");
+
+	}	
 }
 

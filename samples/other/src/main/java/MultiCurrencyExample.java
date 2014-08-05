@@ -58,6 +58,8 @@ public class MultiCurrencyExample {
         System.out.println("Response: " + response3.getResponse());
         System.out.println("Message: " + response3.getMessage());
         System.out.println("Litle Transaction ID: " + response3.getLitleTxnId());
+	if(!response.getMessage().equals("Approved")||!response2.getMessage().equals("Approved")||!response3.getMessage().equals("Approved"))
+        throw new RuntimeException(" The MultiCurrencyExample does not give the right response");
  
     }
 }

@@ -12,6 +12,8 @@ public class VoidExample {
         System.out.println("Response: " + response.getResponse());
         System.out.println("Message: " + response.getMessage());
         System.out.println("Litle Transaction ID: " + response.getLitleTxnId());
+	if(!response.getMessage().equals("Approved"))
+        throw new RuntimeException(" The VoidExample does not give the right response");
     }
 }
 

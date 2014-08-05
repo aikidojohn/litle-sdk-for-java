@@ -34,5 +34,7 @@ public class AvsOnlyExample {
         System.out.println("Litle Transaction ID: " + response.getLitleTxnId());
         
         System.out.println("AVS Result: " + response.getFraudResult().getAvsResult());
+	if(!response.getMessage().equals("Approved"))
+        throw new RuntimeException(" The AvsOnlyExample does not give the right response");
     }
 }

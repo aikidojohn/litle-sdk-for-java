@@ -13,5 +13,7 @@ public class RegisterTokenExample {
         System.out.println("Response: " + response.getResponse());
         System.out.println("Message: " + response.getMessage());
         System.out.println("Token: " + response.getLitleToken());
+        if(!response.getMessage().equals("Account number was successfully registered"))
+        throw new RuntimeException(" The RegisterTokenExample does not give the right response");
     }
 }

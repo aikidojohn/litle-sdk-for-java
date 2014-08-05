@@ -11,5 +11,8 @@ public class PaypageRegistrationIdToTokenExample {
 	RegisterTokenResponse tokenResponse = new LitleOnline().registerToken(tokenRequest);
         //Display Results
         System.out.println("Token: " + tokenResponse.getLitleToken());
+	System.out.println("Response: " + tokenResponse.getMessage());
+        if(!tokenResponse.getMessage().equals("Account number was successfully registered"))
+        throw new RuntimeException(" The PaypageRegistrationIdToTokenExample does not give the right response");
     }
 }
