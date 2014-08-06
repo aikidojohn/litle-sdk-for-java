@@ -13,12 +13,12 @@ public class RfrLitleExample {
         data.setPostDay(Calendar.getInstance());
         rfrRequest.setAccountUpdateFileRequestData(data);
          
-        LitleRFRFileRequest request = new LitleRFRFileRequest(requestFileName, rfrRequest);
-         
+        LitleRFRFileRequest request = new LitleRFRFileRequest(requestFileName, rfrRequest); 
         LitleRFRFileResponse response = request.sendToLitleSFTP();
-        System.out.println("Response:"+response.getMessage());
-	//if(!response.getMessage().equals("The account update file is not ready yet.  Please try again later."))
-        //throw new RuntimeException(" The RfrLitleExample does not give the right response");
+ 	String message=response.getLitleRFRResponse().getRFRResponseMessage();
+	System.out.println(message);
+	if(!message.equals("The account update file is not ready yet.  Please try again later."))
+        throw new RuntimeException(" The RfrLitleExample does not give the right response");
 
     }
 }
