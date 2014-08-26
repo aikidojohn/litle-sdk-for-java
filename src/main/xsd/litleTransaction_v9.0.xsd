@@ -4,17 +4,17 @@
     <xs:include schemaLocation="litleCommon_v9.0.xsd" />
     <xs:include schemaLocation="litleRecurring_v9.0.xsd" />
 
-    <xs:element name="transaction" type="xp:transactionType" abstract="true" />
+    <xs:element name="transaction" type="xp:transactionType" abstract="true"/>
 
     <xs:complexType name="transactionType">
-        <xs:attribute name="id" type="xp:string25Type" />
-        <xs:attribute name="customerId" type="xp:customerIdType" use="optional" />
+        <xs:attribute name="id" type="xp:string25Type"/>
+        <xs:attribute name="customerId" type="xp:customerIdType" use="optional"/>
     </xs:complexType>
 
     <xs:complexType name="transactionTypeWithReportGroup">
         <xs:complexContent>
             <xs:extension base="xp:transactionType">
-                <xs:attribute name="reportGroup" type="xp:reportGroupType" use="required" />
+                <xs:attribute name="reportGroup" type="xp:reportGroupType" use="required"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
