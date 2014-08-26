@@ -1,4 +1,7 @@
 = LitleOnline CHANGELOG
+== Version 8.27.0 (August 26, 2014)
+* Add samples in the build
+* modify xsd
 
 == Version 8.25.4 (June 6, 2014)
 * Migrate build to Gradle
